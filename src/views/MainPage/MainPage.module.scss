@@ -1,0 +1,33 @@
+@import '../../App.scss';
+
+%border {
+    background-color: $b-cMain;
+    border-radius: 5px;
+}
+
+.main {
+    display: grid;
+    grid-template: minmax(200px, auto) minmax(120px, auto) minmax(200px, auto) / 1fr;
+    row-gap: 15px;
+    padding: 0 20px;
+    &__currentWeather {
+        @extend %border;
+    }
+    &__forecastFor3Days {
+        display: grid;
+        column-gap: 10px;    
+        grid-template:  1fr/ 1fr 1fr 1fr;
+    }
+    &__weatherDetail {
+        @extend %border;
+    }
+    &__dailyForecast {
+        min-width: 150px;
+        @extend %border;
+    }
+    &__dailyForecast_selected {
+        width: 500px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 5px;
+    }
+}

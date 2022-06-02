@@ -1,9 +1,15 @@
+import { FC } from 'react';
 import './App.scss';
+import Footer from './components/layout/Footer/Footer';
+import NavBar from './components/layout/Header/NavBar';
+import MainPage from './views/MainPage/MainPage';
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App">
-      It`s working :)
+      <NavBar/>
+      <MainPage/>
+      <Footer/>
     </div>
   );
 }
