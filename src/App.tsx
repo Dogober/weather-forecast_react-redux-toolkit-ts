@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import './App.scss';
-import Footer from './components/layout/Footer/Footer';
-import NavBar from './components/layout/Header/NavBar';
+import Footer from './components/layout/Footer';
+import NavBar from './components/layout/NavBar';
 import MainPage from './views/MainPage/MainPage';
 
 const App: FC = () => {

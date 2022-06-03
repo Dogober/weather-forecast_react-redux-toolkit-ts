@@ -20,6 +20,7 @@ $b-cNav: rgb(80, 120, 172);
 $b-cFoot:rgb(80, 120, 172);
 
 .App {
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
     min-height: 100vh;
     display: grid;
     grid-template: minmax(60px, auto) 1fr minmax(50px, auto) / 1fr;

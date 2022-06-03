@@ -1,0 +1,20 @@
+@import '../../App.scss';
+
+%border {
+    background-color: $b-cMain;
+    border-radius: 5px;
+}
+.forecastFor3Days {
+    display: grid;
+    column-gap: 10px;    
+    grid-template:  1fr/ 1fr 1fr 1fr;
+    &__dailyForecast {
+        min-width: 150px;
+        @extend %border;
+    }
+    &__dailyForecast_selected {
+        width: 500px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 5px;
+    }
+}

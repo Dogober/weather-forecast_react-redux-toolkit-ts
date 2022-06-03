@@ -1,15 +1,19 @@
 import { FC, useState } from 'react';
-import style from '../views/MainPage/MainPage.module.scss'
+import style from './styles/ForecastFor3Days.module.scss'
 
 const days = ["Today", "Tomorrow", "Day after tomorrow"]
 const ForecastFor3Days: FC = () => {
     const [selectedDay, setSelectedDay] = useState("Today")
     return (
-        <section className={style.main__forecastFor3Days}>
+        <section className={style.forecastFor3Days}>
             {days.map(day =>
                 <button 
                     key={day} 
-                    className={day === selectedDay ?style.main__dailyForecast_selected :style.main__dailyForecast}
+                    className={
+                        day === selectedDay 
+                        ?style.forecastFor3Days__dailyForecast_selected 
+                        :style.forecastFor3Days__dailyForecast
+                    }
                     onClick={() => setSelectedDay(day)}
                 >
                     {day}

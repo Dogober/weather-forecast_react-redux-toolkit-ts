@@ -1,0 +1,27 @@
+@import '../../App.scss';
+
+%border {
+    background-color: $b-cMain;
+    border-radius: 5px;
+}
+
+.current {
+    display: grid;
+    grid-template: 1fr min-content/ repeat(4, 1fr);
+    @extend %border;
+    &__feelslike_c {
+        padding: 10px;
+        grid-column-start: 3;
+        grid-column-end: 5;
+    }
+    &__temp {
+        padding: 10px;
+    }
+    &__img {
+        padding: 10px;
+    }
+    &__item {
+        padding: 10px;
+    }
+
+}

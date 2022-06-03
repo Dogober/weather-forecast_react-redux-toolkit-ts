@@ -1,20 +1,21 @@
 import { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchCurrentWeather } from '../store/reducers/ForecastSlice/ActionCreators';
-import style from '../views/MainPage/MainPage.module.scss'
+import Current from './Current';
+import Location from './Location';
+import style from './styles/CurrentWeather.module.scss'
 
 const CurrentWeather: FC = () => {
-    const {current_weather, loading, error} = useAppSelector(state => state.currentWeatherReducer)
+    const {error} = useAppSelector(state => state.currentWeatherReducer)
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(fetchCurrentWeather())
     }, [])
-console.log(current_weather)
     return (
-        <section className={style.main__currentWeather}>
-            {loading && <h1>Is loading...</h1>}
+        <section className={style.currentWeather}>
+            <Location />
+            <Current />
             {error && <h1>{error}</h1>}
-            {current_weather.location?.country}
         </section>
     );
 };

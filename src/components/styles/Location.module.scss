@@ -1,0 +1,15 @@
+@import '../../App.scss';
+
+%border {
+    background-color: $b-cMain;
+    border-radius: 5px;
+}
+
+.location {
+    display: grid;
+    grid-template: min-content 1fr min-content/ 1fr;
+    @extend %border;
+    &__item {
+        padding: 10px;
+    }
+}

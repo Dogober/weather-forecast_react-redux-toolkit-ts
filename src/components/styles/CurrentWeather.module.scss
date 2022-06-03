@@ -1,0 +1,12 @@
+@import '../../App.scss';
+
+%border {
+    background-color: $b-cMain;
+    border-radius: 5px;
+}
+
+.currentWeather {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr ;
+    column-gap: 10px;
+}
