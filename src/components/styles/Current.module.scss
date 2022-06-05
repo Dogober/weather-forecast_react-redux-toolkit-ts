@@ -4,24 +4,30 @@
     background-color: $b-cMain;
     border-radius: 5px;
 }
-
+%jus_al {
+    justify-self: center;
+    align-self: center;
+}
 .current {
     display: grid;
     grid-template: 1fr min-content/ repeat(4, 1fr);
     @extend %border;
     &__feelslike_c {
-        padding: 10px;
         grid-column-start: 3;
         grid-column-end: 5;
+        @extend %jus_al;
+        font-size: 20px;
     }
     &__temp {
-        padding: 10px;
+        @extend %jus_al;
+        font-size: 40px;
     }
     &__img {
-        padding: 10px;
+        @extend %jus_al;
     }
     &__item {
-        padding: 10px;
+        padding: 15px;
+        font-weight: 600;
+        @extend %jus_al;
     }
-
 }

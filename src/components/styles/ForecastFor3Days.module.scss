@@ -3,6 +3,7 @@
 %border {
     background-color: $b-cMain;
     border-radius: 5px;
+    color: #455159;
 }
 .forecastFor3Days {
     display: grid;
@@ -13,8 +14,8 @@
         @extend %border;
     }
     &__dailyForecast_selected {
-        width: 500px;
-        background-color: rgba(255, 255, 255, 0.15);
+        min-width: 550px;
+        background-color: #9FB3BF;
         border-radius: 5px;
     }
 }

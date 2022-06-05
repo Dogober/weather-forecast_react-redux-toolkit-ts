@@ -14,13 +14,13 @@ ul li{list-style: none;}
 img{vertical-align: top;}
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
 
-$b-c: rgb(19, 77, 153);
-$b-cMain: rgba(255, 255, 255, 0.1);
-$b-cNav: rgb(80, 120, 172);
-$b-cFoot:rgb(80, 120, 172);
-
+$b-c: #BACDD9;
+$b-cMain: #DCEAF2;
+$b-cNav: #6D808C;
+$b-cFoot: #6D808C;
 .App {
     font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    color: #455159;
     min-height: 100vh;
     display: grid;
     grid-template: minmax(60px, auto) 1fr minmax(50px, auto) / 1fr;
