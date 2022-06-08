@@ -2,4 +2,14 @@
 
 .navbar {
     background-color: $b-cNav;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    padding: 5px 30px ;
+    &__item {
+        color: #DCEAF2;
+        font-size: 26px;
+        margin: 5px;
+    }
 }

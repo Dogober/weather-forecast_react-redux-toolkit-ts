@@ -17,6 +17,7 @@ interface ILocation {
 }
 interface ICurrent {
     temp_c: number;
+    temp_f: number;
     condition: ICondition;
     wind_kph: number;
     wind_degree: number;
@@ -26,6 +27,7 @@ interface ICurrent {
     humidity: number;
     cloud: number;
     feelslike_c: number;
+    feelslike_f: number;
     vis_km: number;
     air_quality: IAir_quality
 }
@@ -46,6 +48,8 @@ interface IForecastday {
 }
 interface IDay {
     maxtemp_c: number;
+    maxtemp_f: number;
+    mintemp_f: number;
     mintemp_c: number;
     maxwind_kph: number;
     totalprecip_mm: number;
@@ -60,6 +64,7 @@ interface ICondition {
 interface IHour {
     time: string;
     temp_c: number;
+    temp_f: number;
     condition: ICondition;
     wind_kph: number;
     wind_degree: number;
@@ -69,6 +74,7 @@ interface IHour {
     humidity: number;
     cloud: number;
     feelslike_c: number;
+    feelslike_f: number;
     will_it_rain: number;
     chance_of_rain: number;
     will_it_snow: number;

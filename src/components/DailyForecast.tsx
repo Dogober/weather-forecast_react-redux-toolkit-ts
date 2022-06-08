@@ -35,7 +35,7 @@ const DailyForecast: FC<DailyForecastProps> = ({date, day}) => {
             <div className={date === dayOfForecast ?selectedItem :dailyForecastItem}>
                 {date === dayOfForecast ?day.condition.text :null}
             </div>
-        </>
+        </> 
     );
 };
 
