@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IDisplayedWeather } from "../../../models/IDisplayedWeather";
 import { IWeather } from "../../../models/IWeather";
 import { convertDate } from "../../../utils/helpers/convertDate";
+import { displayedData } from "../../../utils/helpers/displayedData";
 
 interface IDisplayedDate {
     date: string;
@@ -9,7 +11,9 @@ interface IDisplayedDate {
 
 interface WeatherState {
     weather: IWeather;
+    displayedWeather: IDisplayedWeather;
     dayOfForecast?: string;
+    tempUnit: string;
     displayedDate?: IDisplayedDate[];
     loading: boolean;
     error: string
@@ -17,7 +21,9 @@ interface WeatherState {
 
 const initialState: WeatherState = {
     weather: {},
+    displayedWeather: {},
     dayOfForecast: '',
+    tempUnit: '°C',
     displayedDate: [],
     loading: false,
     error: ''
@@ -35,6 +41,7 @@ export const weatherSlice = createSlice({
             state.loading = false
             state.error = ''
             state.weather = action.payload
+            state.displayedWeather = displayedData(state.weather, state.tempUnit)
             state.dayOfForecast = forecastDay?.[0].date
             state.displayedDate = forecastDay?.map(day => convertDate(day.date))
         },
