@@ -8,12 +8,12 @@ interface IDisplayedLocation {
     localtime?: string 
 }
 interface IDisplayedCurrent {
-    temp?: number;
+    temp?: string;
     condition: IDisplayedCondition;
     wind_kph?: number;
     pressure_mb?: number;
     precip_mm?: number;
-    feelslike?: number;
+    feelslike?: string;
     vis_km?: number;
 }
 interface IDisplayedForecast {
@@ -25,8 +25,8 @@ interface IDisplayedForecastdays {
     hours?: IDisplayedHours[]
 }
 interface IDisplayedDay {
-    maxtemp?: number;
-    mintemp?: number;
+    maxtemp?: string;
+    mintemp?: string;
     condition: IDisplayedCondition
 }
 interface IDisplayedCondition {
@@ -35,6 +35,6 @@ interface IDisplayedCondition {
 }
 interface IDisplayedHours {
     time?: string;
-    temp?: number;
+    temp?: string;
     condition?: IDisplayedCondition;
 }

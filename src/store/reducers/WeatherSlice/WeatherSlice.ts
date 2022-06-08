@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IDisplayedWeather } from "../../../models/IDisplayedWeather";
 import { IWeather } from "../../../models/IWeather";
-import { convertDate } from "../../../utils/helpers/convertDate";
-import { displayedData } from "../../../utils/helpers/displayedData";
+import { convertDate } from "../../../utils/constans/convertDate";
+import { displayedData } from "../../../utils/constans/displayedData";
 
 interface IDisplayedDate {
     date: string;
@@ -13,7 +13,6 @@ interface WeatherState {
     weather: IWeather;
     displayedWeather: IDisplayedWeather;
     dayOfForecast?: string;
-    tempUnit: string;
     displayedDate?: IDisplayedDate[];
     loading: boolean;
     error: string
@@ -23,7 +22,6 @@ const initialState: WeatherState = {
     weather: {},
     displayedWeather: {},
     dayOfForecast: '',
-    tempUnit: '°C',
     displayedDate: [],
     loading: false,
     error: ''
@@ -41,12 +39,15 @@ export const weatherSlice = createSlice({
             state.loading = false
             state.error = ''
             state.weather = action.payload
-            state.displayedWeather = displayedData(state.weather, state.tempUnit)
+            state.displayedWeather = displayedData(state.weather, '°C')
             state.dayOfForecast = forecastDay?.[0].date
             state.displayedDate = forecastDay?.map(day => convertDate(day.date))
         },
-        selectedDayOfForecast(state, action: PayloadAction<string>){
+        selectedDayOfForecast(state, action: PayloadAction<string | undefined>){
             state.dayOfForecast = action.payload
+        },
+        selectedTempUnit(state, action: PayloadAction<string>){
+            state.displayedWeather = displayedData(state.weather, action.payload)
         },
         weatherFetchingError(state, action: PayloadAction<string>){
             state.loading = false

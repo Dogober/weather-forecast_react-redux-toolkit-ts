@@ -3,17 +3,17 @@ import { useAppSelector } from '../hooks';
 import style from './styles/ForecastFor3Days.module.scss'
 
 interface DailyForecastProps {
-     date: string;
-     day: DayProps
+     date?: string;
+     day?: DayProps
 }
 interface DayProps {
-    condition: ConditionProps
-    maxtemp_c: number;
-    mintemp_c: number
+    condition?: ConditionProps
+    maxtemp?: string;
+    mintemp?: string
 }
 interface ConditionProps {
-    icon: string;
-    text: string
+    icon?: string;
+    text?: string
 }
 const selectedItem = style.forecastFor3Days__selected__item
 const dailyForecastItem = style.forecastFor3Days__dailyForecast__item
@@ -25,15 +25,15 @@ const DailyForecast: FC<DailyForecastProps> = ({date, day}) => {
             <div className={style.forecastFor3Days__dailyForecast__day}>
                 {displayedDate?.find(el => el.date === date)?.convertDate}
             </div>
-            <img src={day.condition.icon} className={style.forecastFor3Days__dailyForecast__img}/>
+            <img src={day?.condition?.icon} className={style.forecastFor3Days__dailyForecast__img}/>
             <div className={dailyForecastItem}>
-                {day.maxtemp_c} °C
+                {day?.maxtemp}
             </div>
             <div className={dailyForecastItem}>
-                {day.mintemp_c} °C
+                {day?.mintemp}
             </div>
             <div className={date === dayOfForecast ?selectedItem :dailyForecastItem}>
-                {date === dayOfForecast ?day.condition.text :null}
+                {date === dayOfForecast ?day?.condition?.text :null}
             </div>
         </> 
     );

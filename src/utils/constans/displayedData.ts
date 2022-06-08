@@ -11,7 +11,7 @@ export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWe
             localtime: location?.localtime
         },
         current: {
-            temp: tempCondition ?current?.temp_c :current?.temp_f,
+            temp: tempCondition ?current?.temp_c.toString() +' °C' :current?.temp_f.toString() +' °F',
             condition: {
                 text: current?.condition.text,
                 icon: current?.condition.icon,
@@ -20,15 +20,18 @@ export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWe
         wind_kph: current?.wind_kph,
         pressure_mb: current?.pressure_mb,
         precip_mm: current?.precip_mm,
-        feelslike: tempCondition ?current?.feelslike_c :current?.feelslike_f,
+        feelslike: tempCondition ?current?.feelslike_c.toString() +' °C' 
+                                 :current?.feelslike_f.toString() +' °F',
         vis_km: current?.vis_km
         },
         forecast: {
             forecastdays: forecast?.forecastday.map(day => el = {
                 date: day.date,
                 day: {
-                    maxtemp: tempCondition ?day.day.maxtemp_c :day.day.maxtemp_f,
-                    mintemp: tempCondition ?day.day.mintemp_c :day.day.mintemp_f,
+                    maxtemp: tempCondition ?day.day.maxtemp_c.toString() +' °C' 
+                                           :day.day.maxtemp_f.toString() +' °F',
+                    mintemp: tempCondition ?day.day.mintemp_c.toString() +' °C' 
+                                           :day.day.mintemp_f.toString() +' °F',
                     condition: {
                         icon: day.day.condition.icon,
                         text: day.day.condition.text
@@ -36,7 +39,7 @@ export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWe
                 },
                 hours: day.hour.map(hour => el = {
                     time: hour.time,
-                    temp: tempCondition ?hour.temp_c :hour.temp_f,
+                    temp: tempCondition ?hour.temp_c.toString() +' °C' :hour.temp_f.toString() +' °F',
                     condition: {
                         text: hour.condition.text,
                         icon: hour.condition.icon
@@ -45,6 +48,6 @@ export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWe
             })
         }
     }
-
+    
     return displayedWeather
 }
