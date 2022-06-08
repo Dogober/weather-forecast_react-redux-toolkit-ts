@@ -1,25 +1,32 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { weatherSlice } from '../store/reducers/WeatherSlice/WeatherSlice';
+import DailyForecast from './DailyForecast';
 import style from './styles/ForecastFor3Days.module.scss'
 
-const days = ["Today", "Tomorrow", "Day after tomorrow"]
 const ForecastFor3Days: FC = () => {
-    const [selectedDay, setSelectedDay] = useState("Today")
+    const {weather, dayOfForecast} = useAppSelector(state => state.weather)
+    const {selectedDayOfForecast} = weatherSlice.actions
+    const dispatch = useAppDispatch()
+    const {forecast} = weather
     return (
         <section className={style.forecastFor3Days}>
-            {days.map(day =>
-                <button 
-                    key={day} 
+            {forecast?.forecastday.map(day =>
+                <div 
+                    key={day.date} 
                     className={
-                        day === selectedDay 
-                        ?style.forecastFor3Days__dailyForecast_selected 
+                        day.date === dayOfForecast 
+                        ?style.forecastFor3Days__selected 
                         :style.forecastFor3Days__dailyForecast
                     }
-                    onClick={() => setSelectedDay(day)}
+                    onClick={() => dispatch(selectedDayOfForecast(day.date))}
                 >
-                    {day}
-                </button>
+                    <>
+                        <DailyForecast {...day}/>
+                    </>
+                </div>
             )}
-        </section>
+        </section>      
     );
 };
 

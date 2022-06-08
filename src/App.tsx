@@ -1,3 +1,4 @@
+import { enableMapSet } from 'immer';
 import { FC } from 'react';
 import './App.scss';
 import Footer from './components/layout/Footer';
