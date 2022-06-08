@@ -4,7 +4,7 @@ export interface IWeather {
     forecast?: IForecast;
     alerts?: IAlerts
 }
-interface IAlerts{
+interface IAlerts {
     alert: any
 }
 interface ILocation {
@@ -40,6 +40,7 @@ interface IForecast {
 }
 interface IForecastday {
     date: string;
+    date_epoch: number;
     day: IDay;
     hour: IHour[]
 }
@@ -53,6 +54,7 @@ interface IDay {
     condition: ICondition
 }
 interface ICondition {
+    text: string;
     icon: string
 }
 interface IHour {
