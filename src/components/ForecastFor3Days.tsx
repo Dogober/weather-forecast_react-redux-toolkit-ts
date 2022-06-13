@@ -5,7 +5,7 @@ import DailyForecast from './DailyForecast';
 import style from './styles/ForecastFor3Days.module.scss'
 
 const ForecastFor3Days: FC = () => {
-    const {displayedWeather, dayOfForecast} = useAppSelector(state => state.weather)
+    const {displayedWeather} = useAppSelector(state => state.weather)
     const {selectedDayOfForecast} = weatherSlice.actions
     const dispatch = useAppDispatch()
     const {forecast} = displayedWeather
@@ -15,8 +15,8 @@ const ForecastFor3Days: FC = () => {
                 <div 
                     key={day.date} 
                     className={
-                        day.date === dayOfForecast 
-                        ?style.forecastFor3Days__selected 
+                        day.date === forecast?.dayOfForecast
+                        ?style.forecastFor3Days__selected
                         :style.forecastFor3Days__dailyForecast
                     }
                     onClick={() => dispatch(selectedDayOfForecast(day.date))}
