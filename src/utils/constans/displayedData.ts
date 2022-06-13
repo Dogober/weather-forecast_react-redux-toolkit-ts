@@ -1,37 +1,43 @@
 import { IDisplayedWeather } from "../../models/IDisplayedWeather";
 import { IWeather } from "../../models/IWeather";
+type displayedDataParams = (
+    weather: IWeather, 
+    isCel: boolean, 
+) => IDisplayedWeather
+const cel = ' °C'
+const fah = ' °F'
+const selectedTempUnit = (tempInCel?: number, tempInFah?: number, isCel?: boolean) => {
+    return isCel ?tempInCel?.toString() + cel :tempInFah?.toString() + fah
+}
+export const displayedData: displayedDataParams = (weather, isCel) => {
 
-export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWeather => {
     const {current, location, forecast} = weather
     let el = {}
-    let tempCondition = tempUnit === '°C' 
     const displayedWeather = {
         location: {
             name: location?.name,
             localtime: location?.localtime
         },
         current: {
-            temp: tempCondition ?current?.temp_c.toString() +' °C' :current?.temp_f.toString() +' °F',
+            temp: selectedTempUnit(current?.temp_c, current?.temp_f, isCel),
             condition: {
                 text: current?.condition.text,
                 icon: current?.condition.icon,
 
             },
-        wind_kph: current?.wind_kph,
-        pressure_mb: current?.pressure_mb,
-        precip_mm: current?.precip_mm,
-        feelslike: tempCondition ?current?.feelslike_c.toString() +' °C' 
-                                 :current?.feelslike_f.toString() +' °F',
-        vis_km: current?.vis_km
+            wind_kph: current?.wind_kph,
+            pressure_mb: current?.pressure_mb,
+            precip_mm: current?.precip_mm,
+            feelslike: selectedTempUnit(current?.feelslike_c, current?.feelslike_f, isCel),
+            vis_km: current?.vis_km
         },
         forecast: {
+            dayOfForecast: forecast?.forecastday[0].date,
             forecastdays: forecast?.forecastday.map(day => el = {
                 date: day.date,
                 day: {
-                    maxtemp: tempCondition ?day.day.maxtemp_c.toString() +' °C' 
-                                           :day.day.maxtemp_f.toString() +' °F',
-                    mintemp: tempCondition ?day.day.mintemp_c.toString() +' °C' 
-                                           :day.day.mintemp_f.toString() +' °F',
+                    maxtemp: selectedTempUnit(day.day.maxtemp_c, day.day.maxtemp_f, isCel),
+                    mintemp: selectedTempUnit(day.day.mintemp_c, day.day.mintemp_f, isCel),
                     condition: {
                         icon: day.day.condition.icon,
                         text: day.day.condition.text
@@ -39,11 +45,11 @@ export const displayedData = (weather: IWeather, tempUnit: string): IDisplayedWe
                 },
                 hours: day.hour.map(hour => el = {
                     time: hour.time,
-                    temp: tempCondition ?hour.temp_c.toString() +' °C' :hour.temp_f.toString() +' °F',
+                    temp: isCel ?hour.temp_c :hour.temp_f,
                     condition: {
                         text: hour.condition.text,
                         icon: hour.condition.icon
-                    }
+                    }, 
                 })
             })
         }

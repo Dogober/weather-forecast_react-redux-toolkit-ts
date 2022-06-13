@@ -17,6 +17,7 @@ interface IDisplayedCurrent {
     vis_km?: number;
 }
 interface IDisplayedForecast {
+    dayOfForecast?: string;
     forecastdays?: IDisplayedForecastdays[]
 }
 interface IDisplayedForecastdays {
@@ -35,6 +36,6 @@ interface IDisplayedCondition {
 }
 interface IDisplayedHours {
     time?: string;
-    temp?: string;
+    temp?: number;
     condition?: IDisplayedCondition;
 }

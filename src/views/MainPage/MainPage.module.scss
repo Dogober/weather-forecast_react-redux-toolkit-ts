@@ -9,8 +9,4 @@
     grid-template: minmax(250px, auto) minmax(120px, auto) minmax(250px, auto) / 1fr;
     row-gap: 15px;
     padding: 0 20px;
-    &__weatherDetail {
-        padding: 30px;
-        @extend %border;
-    }
 }

@@ -10,13 +10,13 @@ const NavBar: FC = () => {
         <div className={style.navbar}>
             <div 
                 className={style.navbar__item}
-                onClick={() => dispatch(selectedTempUnit('°C'))}
+                onClick={() => dispatch(selectedTempUnit(true))}
             >
                 °C
             </div>
             <div 
                 className={style.navbar__item}
-                onClick={() => dispatch(selectedTempUnit('°F'))}
+                onClick={() => dispatch(selectedTempUnit(false))}
             >
                 °F
             </div>
