@@ -8,17 +8,19 @@ const NavBar: FC = () => {
     const {selectedTempUnit} = weatherSlice.actions
     return (
         <div className={style.navbar}>
-            <div 
-                className={style.navbar__item}
-                onClick={() => dispatch(selectedTempUnit(true))}
-            >
-                °C
-            </div>
-            <div 
-                className={style.navbar__item}
-                onClick={() => dispatch(selectedTempUnit(false))}
-            >
-                °F
+            <div className={style.navbar__container}>
+                <div 
+                    className={style.navbar__item}
+                    onClick={() => dispatch(selectedTempUnit(true))}
+                >
+                    °C
+                </div>
+                <div 
+                    className={style.navbar__item}
+                    onClick={() => dispatch(selectedTempUnit(false))}
+                >
+                    °F
+                </div>
             </div>
         </div>
     );

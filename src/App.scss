@@ -21,9 +21,11 @@ $b-cFoot: #6D808C;
 .App {
     font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
     color: #455159;
-    max-width: 1349px;
-    display: grid;
-    grid-template: minmax(60px, auto) 1fr minmax(50px, auto) / 1fr;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
     row-gap: 20px;
     background-color: $b-c;
+    align-items: center;
+    flex-direction: column;
 }
