@@ -5,10 +5,9 @@ import DailyForecast from './DailyForecast';
 import style from './styles/ForecastFor3Days.module.scss'
 
 const ForecastFor3Days: FC = () => {
-    const {displayedWeather} = useAppSelector(state => state.weather)
+    const {forecast} = useAppSelector(state => state.weather.displayedWeather)
     const {selectedDayOfForecast} = weatherSlice.actions
     const dispatch = useAppDispatch()
-    const {forecast} = displayedWeather
     return (
         <section className={style.forecastFor3Days}>
             {forecast?.forecastdays?.map(day =>

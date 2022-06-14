@@ -30,7 +30,11 @@ export const weatherSlice = createSlice({
             state.loading = false
             state.error = ''
             state.weather = action.payload
-            state.displayedWeather = displayedData(state.weather, state.isCel)
+            state.displayedWeather = displayedData(
+                state.weather, 
+                state.isCel, 
+                state.weather.forecast?.forecastday[0].date
+            )
         },
         selectedDayOfForecast(state, action: PayloadAction<string | undefined>){
             if (state.displayedWeather.forecast) {
@@ -39,7 +43,11 @@ export const weatherSlice = createSlice({
         },
         selectedTempUnit(state, action: PayloadAction<boolean>){
             state.isCel = action.payload
-            state.displayedWeather = displayedData(state.weather, state.isCel)
+            state.displayedWeather = displayedData(
+                state.weather, 
+                state.isCel, 
+                state.displayedWeather.forecast!.dayOfForecast
+            )
         },
         weatherFetchingError(state, action: PayloadAction<string>){
             state.loading = false

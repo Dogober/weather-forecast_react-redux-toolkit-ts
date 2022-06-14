@@ -2,14 +2,15 @@ import { IDisplayedWeather } from "../../models/IDisplayedWeather";
 import { IWeather } from "../../models/IWeather";
 type displayedDataParams = (
     weather: IWeather, 
-    isCel: boolean, 
+    isCel: boolean,
+    dayOfForecast?: string
 ) => IDisplayedWeather
 const cel = ' °C'
 const fah = ' °F'
 const selectedTempUnit = (tempInCel?: number, tempInFah?: number, isCel?: boolean) => {
     return isCel ?tempInCel?.toString() + cel :tempInFah?.toString() + fah
 }
-export const displayedData: displayedDataParams = (weather, isCel) => {
+export const displayedData: displayedDataParams = (weather, isCel, dayOfForecast) => {
 
     const {current, location, forecast} = weather
     let el = {}
@@ -32,7 +33,7 @@ export const displayedData: displayedDataParams = (weather, isCel) => {
             vis_km: current?.vis_km
         },
         forecast: {
-            dayOfForecast: forecast?.forecastday[0].date,
+            dayOfForecast: dayOfForecast,
             forecastdays: forecast?.forecastday.map(day => el = {
                 date: day.date,
                 day: {

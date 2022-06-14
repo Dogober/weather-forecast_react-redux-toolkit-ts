@@ -6,27 +6,12 @@
 }
 .hourlyForecast {
     display: grid;
-    grid-template: minmax(50px, auto) 1fr minmax(50px, auto) / 1fr ;
+    grid-template: minmax(50px, auto) 1fr/ 1fr ;
     @extend %border;
     &__nav {
         color: gray
     }
     &__canvasContainer {
         overflow: hidden;
-    }
-    &__canvas_firstDay {
-        transform: translateX(0px);
-        transition: 1s;
-    }
-    &__canvas_secondDay {
-        transform: translateX(-1309px);
-        transition: 1s;
-    }
-    &__canvas_thirdDay {
-        transform: translateX(-2618px);
-        transition: 1s;
-    }
-    &__footer {
-        color: gray
     }
 }
