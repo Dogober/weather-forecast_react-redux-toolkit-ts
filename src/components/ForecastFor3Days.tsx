@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { weatherSlice } from '../store/reducers/WeatherSlice/WeatherSlice';
+import { selectedDayOfForecast } from '../store/reducers/WeatherSlice/ActionCreators';
 import DailyForecast from './DailyForecast';
 import style from './styles/ForecastFor3Days.module.scss'
 
 const ForecastFor3Days: FC = () => {
     const {forecast} = useAppSelector(state => state.weather.displayedWeather)
-    const {selectedDayOfForecast} = weatherSlice.actions
     const dispatch = useAppDispatch()
     return (
         <section className={style.forecastFor3Days}>

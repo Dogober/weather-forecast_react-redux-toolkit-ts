@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { weatherSlice } from '../../store/reducers/WeatherSlice/WeatherSlice';
+import { selectedTempUnit } from '../../store/reducers/WeatherSlice/ActionCreators';
 import style from '../styles/NavBar.module.scss'
 
 const NavBar: FC = () => {
     const dispatch = useAppDispatch()
-    const {selectedTempUnit} = weatherSlice.actions
     return (
         <div className={style.navbar}>
             <div className={style.navbar__container}>

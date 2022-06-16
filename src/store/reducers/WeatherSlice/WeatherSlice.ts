@@ -8,7 +8,9 @@ interface WeatherState {
     displayedWeather: IDisplayedWeather;
     isCel: boolean;
     loading: boolean;
-    error: string
+    city: string;
+    error: string;
+    forecastDetails: string
 }
 
 const initialState: WeatherState = {
@@ -16,6 +18,8 @@ const initialState: WeatherState = {
     displayedWeather: {},
     isCel: true,
     loading: false,
+    city: 'Kiev',
+    forecastDetails: 'summary',
     error: ''
 }
 
@@ -35,6 +39,12 @@ export const weatherSlice = createSlice({
                 state.isCel, 
                 state.weather.forecast?.forecastday[0].date
             )
+        },
+        selectedForecastDetails(state, action: PayloadAction<string>){
+            state.forecastDetails = action.payload
+        },
+        selectedCity(state, action: PayloadAction<string>){
+            state.city = action.payload
         },
         selectedDayOfForecast(state, action: PayloadAction<string | undefined>){
             if (state.displayedWeather.forecast) {

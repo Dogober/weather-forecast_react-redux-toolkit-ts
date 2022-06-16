@@ -8,10 +8,10 @@ import style from './MainPage.module.scss'
 
 const MainPage: FC = () => {
     const dispatch = useAppDispatch()
-    const {loading, error, weather} = useAppSelector(state => state.weather)
+    const {loading, error, weather, city} = useAppSelector(state => state.weather)
     useEffect(() => {
-        dispatch(fetchWeather())
-    }, [])
+        dispatch(fetchWeather(city))
+    }, [city])
     return (
         <main className={style.main}>
             {loading && <h1>Is loading...</h1>}
