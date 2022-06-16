@@ -4,19 +4,23 @@ import { IParams } from "../../../models/IParams";
 import { IWeather } from "../../../models/IWeather";
 import { weatherSlice } from "./WeatherSlice";
 
-const {
+export const {
     weatherFetching, 
     weatherFetchingError, 
-    weatherFetchingSuccess
+    weatherFetchingSuccess,
+    selectedDayOfForecast,
+    selectedForecastDetails,
+    selectedTempUnit,
+    selectedCity
 } = weatherSlice.actions
-export const fetchWeather = () => async (dispatch: AppDispatch) => {
+export const fetchWeather = (city: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(weatherFetching())
         const response = await axios.get<IWeather>(
             'http://api.weatherapi.com/v1/forecast.json?', {
                 params: <IParams> {
-                    key: '4371ead6bca843c796f193609222905',
-                    q: 'Kiev',
+                    key: '4371ead6bca843c796f193609222905', 
+                    q: city,
                     days: 3,
                     aqi: 'yes',
                     alerts: 'yes'
