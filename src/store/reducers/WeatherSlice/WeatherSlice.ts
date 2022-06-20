@@ -58,7 +58,7 @@ export const weatherSlice = createSlice({
             state.displayedWeather = displayedData(
                 state.weather, 
                 state.isCel, 
-                state.displayedWeather.forecast!.dayOfForecast
+                state.displayedWeather.forecast?.dayOfForecast
             )
         },
         weatherFetchingError(state, action: PayloadAction<string>){

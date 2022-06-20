@@ -1,6 +1,6 @@
 import { IDisplayedWeather } from "../../models/IDisplayedWeather";
 import { IWeather } from "../../models/IWeather";
-type displayedDataParams = (
+type displayedDataType = (
     weather: IWeather, 
     isCel: boolean,
     dayOfForecast?: string
@@ -10,7 +10,8 @@ const fah = ' °F'
 const selectedTempUnit = (tempInCel?: number, tempInFah?: number, isCel?: boolean) => {
     return isCel ?tempInCel?.toString() + cel :tempInFah?.toString() + fah
 }
-export const displayedData: displayedDataParams = (weather, isCel, dayOfForecast) => {
+const regExp = /(\w+\s\w+)/g
+export const displayedData: displayedDataType = (weather, isCel, dayOfForecast) => {
 
     const {current, location, forecast} = weather
     let el = {}
@@ -42,16 +43,17 @@ export const displayedData: displayedDataParams = (weather, isCel, dayOfForecast
                     condition: {
                         icon: day.day.condition.icon,
                         text: day.day.condition.text
-                    }          
+                    }
                 },
-                hours: day.hour.map(hour => el = {
-                    time: hour.time,
-                    temp: isCel ?hour.temp_c :hour.temp_f,
-                    condition: {
+                hours: {
+                    time: day.hour.map(hour => hour.time).filter((el, i) => i % 2 === 0)
+                    .map(el => new Date(el).toLocaleDateString('en-us', { hour: '2-digit' }).match(regExp)![0]),
+                    temp: day.hour.map(hour => isCel ?hour.temp_c :hour.temp_f).filter((el, i) => i % 2 === 0),
+                    condition: day.hour.map(hour => el = {
                         text: hour.condition.text,
                         icon: hour.condition.icon
-                    }, 
-                })
+                    })
+                }
             })
         }
     }

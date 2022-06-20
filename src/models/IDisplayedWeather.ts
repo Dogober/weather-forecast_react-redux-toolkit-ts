@@ -16,14 +16,14 @@ interface IDisplayedCurrent {
     feelslike?: string;
     vis_km?: number;
 }
-interface IDisplayedForecast {
+export interface IDisplayedForecast {
     dayOfForecast?: string;
     forecastdays?: IDisplayedForecastdays[]
 }
 interface IDisplayedForecastdays {
     date?: string;
     day?: IDisplayedDay;
-    hours?: IDisplayedHours[]
+    hours?: IDisplayedHours
 }
 interface IDisplayedDay {
     maxtemp?: string;
@@ -35,7 +35,7 @@ interface IDisplayedCondition {
     icon?: string
 }
 interface IDisplayedHours {
-    time?: string;
-    temp?: number;
-    condition?: IDisplayedCondition;
+    time?: string[];
+    temp?: number[];
+    condition?: IDisplayedCondition[];
 }
