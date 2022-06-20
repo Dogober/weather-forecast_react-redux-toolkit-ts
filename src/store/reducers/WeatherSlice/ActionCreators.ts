@@ -11,9 +11,9 @@ export const {
     selectedDayOfForecast,
     selectedForecastDetails,
     selectedTempUnit,
-    selectedCity
+    selectedCity,
 } = weatherSlice.actions
-export const fetchWeather = (city: string) => async (dispatch: AppDispatch) => {
+export const fetchWeather = (city?: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(weatherFetching())
         const response = await axios.get<IWeather>(
@@ -21,6 +21,7 @@ export const fetchWeather = (city: string) => async (dispatch: AppDispatch) => {
                 params: <IParams> {
                     key: '4371ead6bca843c796f193609222905', 
                     q: city,
+                    lang: 'en',
                     days: 3,
                     aqi: 'yes',
                     alerts: 'yes'

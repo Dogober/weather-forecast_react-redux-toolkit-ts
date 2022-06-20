@@ -8,9 +8,9 @@ interface WeatherState {
     displayedWeather: IDisplayedWeather;
     isCel: boolean;
     loading: boolean;
-    city: string;
+    city?: string;
     error: string;
-    forecastDetails: string
+    forecastDetails: string;
 }
 
 const initialState: WeatherState = {
@@ -20,7 +20,7 @@ const initialState: WeatherState = {
     loading: false,
     city: 'Kiev',
     forecastDetails: 'summary',
-    error: ''
+    error: '',
 }
 
 export const weatherSlice = createSlice({
@@ -29,6 +29,8 @@ export const weatherSlice = createSlice({
     reducers: {
         weatherFetching(state){
             state.loading = true
+            state.displayedWeather = {}
+            state.error = ''
         },
         weatherFetchingSuccess(state, action: PayloadAction<IWeather>){
             state.loading = false

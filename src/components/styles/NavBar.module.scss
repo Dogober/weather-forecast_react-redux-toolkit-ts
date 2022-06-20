@@ -16,7 +16,45 @@
         display: flex;
         flex-direction: row;
         justify-content: end;
-        padding: 5px 30px ;    
+        align-items: center;
+        padding: 10px 30px;    
         min-width: 1349px;
+        position: relative;
+    }
+    &__searchCityContainer {
+        position: relative;
+        margin-right: auto;
+    }
+    &__autocomplete {
+        position: absolute;
+        height: auto;
+        width: 100%;
+        background:#9FB3BF;
+        top: 30px;
+        box-shadow: 5px 5px 5px #545e64;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        &__item {
+            padding: 10px;
+            cursor: pointer;
+            &:hover {
+                background: #DCEAF2;
+                transition: cubic-bezier(0.075, 0.82, 0.165, 1) 3s all;
+            }
+            &:last-child:hover{
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;        
+            }
+        }
+    }
+    &__searchCity {
+        height: 30px;
+        width: 250px;
+        background: #DCEAF2;
+        box-shadow: 0 3px 5px #424d53;
+        border-radius: 15px;
+        padding: 0 25px;
+        font-size: 14px;
+        color: #6D808C;
     }
 }
