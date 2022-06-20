@@ -23,11 +23,10 @@ export const searchLocationSlice = createSlice({
         },
         setSearchIsOpen(state, action: PayloadAction<boolean>){
             state.searchIsOpen = action.payload
-            state.searchValue = state.searchIsOpen ?state.searchValue :''
-
+            state.searchValue = !state.searchIsOpen ?"" :state.searchValue
+            state.searchLocation = !state.searchIsOpen ?[] :state.searchLocation
         }
     }
-
 })
 
 export default searchLocationSlice.reducer
