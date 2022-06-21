@@ -20,7 +20,7 @@ const HourlyForecast: FC = () => {
             </div>
             { forecastDetails === 'summary'
             ?<div className={style.hourlyForecast__canvasContainer}>
-                <canvas
+                <canvas width={(window.innerWidth - 50) * forecast?.forecastdays?.length!}
                     style={{
                         transform: `translateX(-${currentTempChart(forecast)}px)`,
                         transition: '1s'

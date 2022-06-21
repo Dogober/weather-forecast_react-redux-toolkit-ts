@@ -14,7 +14,7 @@ export const drawTempChart = (
     if (forecastDetails === 'summary') {
         const deg = '°'
         const canvas = canvasRef?.current
-        const width = canvas!.width = 3927
+        const width = canvas!.clientWidth >= 3948 ?3948 :canvas!.clientWidth
         const height = canvas!.height = 200
         const ctx = canvas?.getContext('2d')
         const topLimit = height/100 * 20
@@ -39,7 +39,7 @@ export const drawTempChart = (
             ctx?.lineTo(x += xStep, yStep)
         }
         ctx?.lineTo(x += xStep, y)
-        ctx?.lineTo(x += xStep, height)
+        ctx?.lineTo(x, height)
         ctx?.lineTo(0, height)
         ctx?.lineTo(0, y)
         ctx?.fill()

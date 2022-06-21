@@ -3,9 +3,8 @@ import { IDisplayedForecast } from "../../models/IDisplayedWeather"
 export const currentTempChart = (forecast?: IDisplayedForecast) => {  
     const currentDay = forecast?.forecastdays?.find(el => el.date === forecast.dayOfForecast)
     const currentDayIndex = forecast?.forecastdays?.indexOf(currentDay!)
-    const canvasWidth = 3927
     let stepOffset = 0
-    let offset = canvasWidth/forecast?.forecastdays?.length!
+    let offset = (window.innerWidth - 50) > 1316 ?1316 :(window.innerWidth - 50)
     stepOffset = offset * currentDayIndex!
     return stepOffset
 }
