@@ -1,8 +1,9 @@
-import { ChangeEvent, FC, MouseEvent, useRef, useEffect } from 'react';
+import { ChangeEvent, FC, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchLocation, setSearchIsOpen, setSearchValue } from '../../store/reducers/SearchLocationSlice/ActionCreators';
-import { selectedCity, selectedTempUnit } from '../../store/reducers/WeatherSlice/ActionCreators';
 import style from '../styles/NavBar.module.scss'
+import LocationItem from '../ui/LocationItem';
+import NavbarItem from '../ui/NavbarItem';
 
 const NavBar: FC = () => {
     const dispatch = useAppDispatch()
@@ -19,11 +20,6 @@ const NavBar: FC = () => {
         if (searchCityContainer && !searchCityContainer.contains(event.target as HTMLDivElement)) {
             dispatch(setSearchIsOpen(false))
         }
-    }
-    const itemClickHandler = (event: MouseEvent<HTMLLIElement>) => {
-        dispatch(setSearchValue(event.currentTarget.textContent!))
-        dispatch(selectedCity(event.currentTarget.textContent!))
-        dispatch(setSearchIsOpen(false))
     }
     const clickHendler = () => {
         dispatch(setSearchIsOpen(true))
@@ -62,28 +58,12 @@ const NavBar: FC = () => {
                     <ul className={style.navbar__autocomplete}>
                         {searchValue && searchIsOpen
                         ?searchLocation.map(location =>
-                            <li 
-                                className={style.navbar__autocomplete__item}
-                                key={location.id}
-                                onClick={itemClickHandler}
-                            >
-                                {location.country}, {location.name}
-                            </li>
+                            <LocationItem location={location}/>
                         ) :null}
                     </ul>
                 </div>
-                <div 
-                    className={style.navbar__item}
-                    onClick={() => dispatch(selectedTempUnit(true))}
-                >
-                    °C
-                </div>
-                <div 
-                    className={style.navbar__item}
-                    onClick={() => dispatch(selectedTempUnit(false))}
-                >
-                    °F
-                </div>
+                <NavbarItem isCelUnit={true} unit={'°C'}/>
+                <NavbarItem isCelUnit={false} unit={'°F'}/>
             </div>
         </div>
     );

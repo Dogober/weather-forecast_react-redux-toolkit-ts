@@ -1,0 +1,12 @@
+.navbar__autocomplete__item {
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+        background: #DCEAF2;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1) 3s all;
+    }
+    &:last-child:hover{
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;        
+    }
+}
