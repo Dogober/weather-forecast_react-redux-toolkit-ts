@@ -22,10 +22,9 @@ $b-cFoot: #6D808C;
     font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
     color: #455159;
     display: flex;
-    width: 100%;
     min-height: 100vh;
-    row-gap: 20px;
     background-color: $b-c;
     align-items: center;
+    gap: 20px;
     flex-direction: column;
 }
