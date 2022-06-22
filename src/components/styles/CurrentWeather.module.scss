@@ -10,10 +10,10 @@
     grid-template: 1fr / 1fr 1fr ;
     column-gap: 10px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), (orientation: portrait)  {
     .currentWeather {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
+        display: grid;
+        row-gap: 10px;
+        grid-template: 1fr 1fr / 1fr;
     }    
 }

@@ -50,7 +50,7 @@
         }
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), (orientation: portrait) {
     .forecastFor3Days {
         display: flex;
         flex-direction: column;
@@ -61,5 +61,5 @@
         &__dailyForecast {
             width: 100%;
         }
-    }        
+    }
 }
