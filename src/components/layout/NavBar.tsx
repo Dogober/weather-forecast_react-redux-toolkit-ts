@@ -62,8 +62,10 @@ const NavBar: FC = () => {
                         ) :null}
                     </ul>
                 </div>
-                <NavbarItem isCelUnit={true} unit={'°C'}/>
-                <NavbarItem isCelUnit={false} unit={'°F'}/>
+                <div className={style.navbar__itemContainer}>
+                    <NavbarItem isCelUnit={true} unit={'°C'}/>
+                    <NavbarItem isCelUnit={false} unit={'°F'}/>
+                </div>
             </div>
         </div>
     );

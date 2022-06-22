@@ -17,7 +17,7 @@ export const fetchWeather = (city?: string) => async (dispatch: AppDispatch) => 
     try {
         dispatch(weatherFetching())
         const response = await axios.get<IWeather>(
-            'http://api.weatherapi.com/v1/forecast.json?', {
+            'https://api.weatherapi.com/v1/forecast.json?', {
                 params: <IParams> {
                     key: '4371ead6bca843c796f193609222905', 
                     q: city,

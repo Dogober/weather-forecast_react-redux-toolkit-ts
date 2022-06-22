@@ -7,16 +7,13 @@
     width: 100%;
     &__container {
         display: flex;
-        flex-direction: row;
-        justify-content: end;
+        justify-content: center;
         align-items: center;
         padding: 10px 30px;    
-        min-width: 1349px;
-        position: relative;
+        width: 1349px;
     }
     &__searchCityContainer {
         position: relative;
-        margin-right: auto;
     }
     &__autocomplete {
         position: absolute;
@@ -37,5 +34,9 @@
         padding: 0 25px;
         font-size: 14px;
         color: #6D808C;
+    }
+    &__itemContainer {
+        display: flex;
+        margin-left: auto;
     }
 }
