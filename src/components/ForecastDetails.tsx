@@ -2,10 +2,10 @@ import { FC, useEffect, useRef } from 'react';
 import { useAppSelector } from '../hooks';
 import { currentTempChart } from '../utils/constans/currentTempChart';
 import { drawTempChart } from '../utils/constans/drawTempChart';
-import style from './styles/HourlyForecast.module.scss'
-import ForecastDetailsButton from './ui/ForecastDetailsButton';
+import style from './styles/ForecastDetails.module.scss'
+import ForecastDetailsLink from './ui/ForecastDetailsLink';
 
-const HourlyForecast: FC = () => {
+const ForecastDetails: FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const {forecast} = useAppSelector(state => state.weather.displayedWeather)
     const {isCel, forecastDetails} = useAppSelector(state => state.weather)
@@ -13,13 +13,13 @@ const HourlyForecast: FC = () => {
         drawTempChart(forecastDetails, forecast, canvasRef)
     }, [isCel, forecastDetails])
     return (
-        <div className={style.hourlyForecast}>
-            <div className={style.hourlyForecast__nav}>
-                <ForecastDetailsButton currentDetails={'summary'} detailName={'Summary'}/>
-                <ForecastDetailsButton currentDetails={'hourly'} detailName={'Hourly'}/>
+        <div className={style.forecastDetails}>
+            <div className={style.forecastDetails__nav}>
+                <ForecastDetailsLink currentDetails={'summary'} detailName={'Summary'}/>
+                <ForecastDetailsLink currentDetails={'hourly'} detailName={'Hourly'}/>
             </div>
             { forecastDetails === 'summary'
-            ?<div className={style.hourlyForecast__canvasContainer}>
+            ?<div className={style.forecastDetails__canvasContainer}>
                 <canvas width={(window.innerWidth - 50) * forecast?.forecastdays?.length!}
                     style={{
                         transform: `translateX(-${currentTempChart(forecast)}px)`,
@@ -29,11 +29,11 @@ const HourlyForecast: FC = () => {
                 >
                 </canvas>
             </div>
-            :<div className={style.hourlyForecast__hourly}>
+            :<div className={style.forecastDetails__hourly}>
                 Hourly forecast
             </div>}
         </div>
     );
 };
 
-export default HourlyForecast;
+export default ForecastDetails;

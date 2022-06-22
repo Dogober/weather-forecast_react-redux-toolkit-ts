@@ -4,7 +4,7 @@
     background-color: $b-cMain;
     border-radius: 5px;
 }
-.hourlyForecast {
+.forecastDetails {
     display: grid;
     overflow: hidden;
     grid-template: minmax(40px, auto) 1fr/ 1fr;
