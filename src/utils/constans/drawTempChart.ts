@@ -16,7 +16,7 @@ export const drawTempChart = (
         const deg = '°'
         const canvas = canvasRef?.current
         const width = canvas!.clientWidth >= 3948 ?3948 :canvas!.clientWidth
-        if (width <= 2100) {
+        if (width <= 2700) {
             tempArr = tempArr?.filter((el, i) => i % 2 === 0)
             timeArr = timeArr?.filter((el, i) => i % 2 === 0)
         }
@@ -69,7 +69,7 @@ export const drawTempChart = (
             ctx?.fillText(currentTime, xStep, yShiftDawn)
         }
         for (let i = 0; i < forecast?.forecastdays?.length!; i++) {
-            let numberHours = width <= 2100 ?6 :12
+            let numberHours = width <= 2700 ?6 :12
             ctx!.font = (' 600 14px Segoe UI, Tahoma, Verdana, sans-serif')
             i === 0 ?ctx?.translate(xStep, 0) :ctx?.translate(xStep*numberHours, 0)
             ctx?.fillText(convertDate(forecast?.forecastdays![i]!.date!), 0, yShiftUp)
