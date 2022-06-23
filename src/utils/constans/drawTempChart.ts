@@ -7,14 +7,21 @@ export const drawTempChart = (
     forecast?: IDisplayedForecast, 
     canvasRef?: MutableRefObject<HTMLCanvasElement | null>
     ) => {
-    const tempArr = forecast?.forecastdays?.map(el => el.hours?.temp).flat()
-    const timeArr = forecast?.forecastdays?.map(el => el.hours?.time).flat().reverse()
-    const minTemp = tempArr?.reduce((a, b) => a! >= b! ?b :a)
-    const maxTemp = tempArr?.reduce((a, b) => a! <= b! ?b :a)
+    let tempArr = forecast?.forecastdays?.map(el => el.hours?.temp).flat()
+        .filter((el, i) => i % 2 === 0)
+    let timeArr = forecast?.forecastdays?.map(el => el.hours?.time).flat()
+        .filter((el, i) => i % 2 === 0)
+        .reverse()
     if (forecastDetails === 'summary') {
         const deg = '°'
         const canvas = canvasRef?.current
         const width = canvas!.clientWidth >= 3948 ?3948 :canvas!.clientWidth
+        if (width <= 2100) {
+            tempArr = tempArr?.filter((el, i) => i % 2 === 0)
+            timeArr = timeArr?.filter((el, i) => i % 2 === 0)
+        }
+        const minTemp = tempArr?.reduce((a, b) => a! >= b! ?b :a)
+        const maxTemp = tempArr?.reduce((a, b) => a! <= b! ?b :a)    
         const height = canvas!.height = 200
         const ctx = canvas?.getContext('2d')
         const topLimit = height/100 * 20
@@ -62,12 +69,13 @@ export const drawTempChart = (
             ctx?.fillText(currentTime, xStep, yShiftDawn)
         }
         for (let i = 0; i < forecast?.forecastdays?.length!; i++) {
+            let numberHours = width <= 2100 ?6 :12
             ctx!.font = (' 600 14px Segoe UI, Tahoma, Verdana, sans-serif')
-            i === 0 ?ctx?.translate(xStep, 0) :ctx?.translate(xStep*12, 0)
+            i === 0 ?ctx?.translate(xStep, 0) :ctx?.translate(xStep*numberHours, 0)
             ctx?.fillText(convertDate(forecast?.forecastdays![i]!.date!), 0, yShiftUp)
         }
         ctx?.fill()
-        ctx?.closePath()    
+        ctx?.closePath()
     } else {
         return
     }

@@ -46,9 +46,10 @@ export const displayedData: displayedDataType = (weather, isCel, dayOfForecast) 
                     }
                 },
                 hours: {
-                    time: day.hour.map(hour => hour.time).filter((el, i) => i % 2 === 0)
-                    .map(el => new Date(el).toLocaleDateString('en-us', { hour: '2-digit' }).match(regExp)![0]),
-                    temp: day.hour.map(hour => isCel ?hour.temp_c :hour.temp_f).filter((el, i) => i % 2 === 0),
+                    time: day.hour.map(hour => hour.time)
+                        .map(el => new Date(el).toLocaleDateString('en-us', { hour: '2-digit' })
+                        .match(regExp)![0]),
+                    temp: day.hour.map(hour => isCel ?hour.temp_c :hour.temp_f),
                     condition: day.hour.map(hour => el = {
                         text: hour.condition.text,
                         icon: hour.condition.icon
