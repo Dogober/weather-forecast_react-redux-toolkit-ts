@@ -14,7 +14,6 @@ const regExp = /(\w+\s\w+)/g
 export const displayedData: displayedDataType = (weather, isCel, dayOfForecast) => {
 
     const {current, location, forecast} = weather
-    let el = {}
     const displayedWeather = {
         location: {
             name: location?.name,
@@ -35,7 +34,7 @@ export const displayedData: displayedDataType = (weather, isCel, dayOfForecast) 
         },
         forecast: {
             dayOfForecast: dayOfForecast,
-            forecastdays: forecast?.forecastday.map(day => el = {
+            forecastdays: forecast?.forecastday.map(day => ({
                 date: day.date,
                 day: {
                     maxtemp: selectedTempUnit(day.day.maxtemp_c, day.day.maxtemp_f, isCel),
@@ -45,17 +44,18 @@ export const displayedData: displayedDataType = (weather, isCel, dayOfForecast) 
                         text: day.day.condition.text
                     }
                 },
-                hours: {
-                    time: day.hour.map(hour => hour.time)
-                        .map(el => new Date(el).toLocaleDateString('en-us', { hour: '2-digit' })
-                        .match(regExp)![0]),
-                    temp: day.hour.map(hour => isCel ?hour.temp_c :hour.temp_f),
-                    condition: day.hour.map(hour => el = {
-                        text: hour.condition.text,
-                        icon: hour.condition.icon
-                    })
-                }
-            })
+            })),
+            hours: forecast?.forecastday.map(el => el.hour).flat().map(hour => ({
+                time: new Date(hour.time).toLocaleDateString('en-us', { hour: '2-digit' })
+                    .match(regExp)![0],
+                temp: isCel ?hour.temp_c :hour.temp_f,
+                condition: {
+                    text: hour.condition.text,
+                    icon: hour.condition.icon
+                },
+                precip_mm: hour.precip_mm,
+                wind_kph: hour.wind_kph
+            }))
         }
     }
     

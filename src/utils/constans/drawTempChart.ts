@@ -7,11 +7,8 @@ export const drawTempChart = (
     forecast?: IDisplayedForecast, 
     canvasRef?: MutableRefObject<HTMLCanvasElement | null>
     ) => {
-    let tempArr = forecast?.forecastdays?.map(el => el.hours?.temp).flat()
-        .filter((el, i) => i % 2 === 0)
-    let timeArr = forecast?.forecastdays?.map(el => el.hours?.time).flat()
-        .filter((el, i) => i % 2 === 0)
-        .reverse()
+    let tempArr = forecast?.hours?.map(el => el.temp).filter((el, i) => i % 2 === 0)
+    let timeArr = forecast?.hours?.map(el => el.time).filter((el, i) => i % 2 === 0).reverse()
     if (forecastDetails === 'summary') {
         const deg = '°'
         const canvas = canvasRef?.current
@@ -21,7 +18,7 @@ export const drawTempChart = (
             timeArr = timeArr?.filter((el, i) => i % 2 === 0)
         }
         const minTemp = tempArr?.reduce((a, b) => a! >= b! ?b :a)
-        const maxTemp = tempArr?.reduce((a, b) => a! <= b! ?b :a)    
+        const maxTemp = tempArr?.reduce((a, b) => a! <= b! ?b :a)   
         const height = canvas!.height = 200
         const ctx = canvas?.getContext('2d')
         const topLimit = height/100 * 20

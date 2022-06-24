@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from 'react';
 import { useAppSelector } from '../hooks';
 import { currentTempChart } from '../utils/constans/currentTempChart';
 import { drawTempChart } from '../utils/constans/drawTempChart';
+import HourlyForecast from './HourlyForecast';
 import style from './styles/ForecastDetails.module.scss'
 import ForecastDetailsLink from './ui/ForecastDetailsLink';
 
@@ -29,9 +30,7 @@ const ForecastDetails: FC = () => {
                 >
                 </canvas>
             </div>
-            :<div className={style.forecastDetails__hourly}>
-                Hourly forecast
-            </div>}
+            :<HourlyForecast/>}
         </div>
     );
 };
