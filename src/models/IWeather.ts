@@ -40,7 +40,7 @@ interface IAir_quality {
 interface IForecast {
     forecastday: IForecastday[]
 }
-interface IForecastday {
+export interface IForecastday {
     date: string;
     date_epoch: number;
     day: IDay;
