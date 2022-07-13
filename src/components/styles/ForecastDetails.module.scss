@@ -34,8 +34,8 @@
 .forecastDetails {
     display: grid;
     grid-template: minmax(40px, auto) 1fr/ 1fr;
-    width: 100%;
     position: relative;
+    width: 100%;
     @extend %border;
     &__nav {
         border-bottom: 1px solid #BACDD9;

@@ -22,8 +22,13 @@ const ForecastDetails: FC = () => {
     const dispatch = useAppDispatch()
     const rightOffset = forecastDay?.hours?.length! * hourlyWidthItem! - detailsWidth!
     useEffect(() => {
+        drawTempChart(forecastDetails, forecast, canvasRef)
+    }, [isCel, forecastDetails, detailsWidth])
+    useEffect(() => {
+        console.log("useEffect отработал")
         const resizeHandler = () => {
             dispatch(setDetailsWidth(tempChartContainerRef.current?.offsetWidth))
+            console.log(tempChartContainerRef.current?.offsetWidth)
         }
         resizeHandler()
         window.addEventListener('resize', resizeHandler)
@@ -31,10 +36,6 @@ const ForecastDetails: FC = () => {
             window.removeEventListener('resize', resizeHandler)
         }
     }, [])
-    useEffect(() => {
-        drawTempChart(forecastDetails, forecast, canvasRef, detailsWidth)
-    }, [isCel, forecastDetails, detailsWidth])
-
     return (
         <div className={style.forecastDetails}
         >
@@ -47,6 +48,9 @@ const ForecastDetails: FC = () => {
                 ref={tempChartContainerRef}
                 className={style.forecastDetails__canvasContainer}>
                 <canvas
+                    width={detailsWidth === undefined
+                        ?(window.innerWidth - 50)*forecast?.forecastdays?.length!
+                        :detailsWidth*forecast?.forecastdays?.length!}
                     style={{
                         transform: `translateX(-${currentTempChart(forecast, detailsWidth)}px)`,
                         transition: '1s'
