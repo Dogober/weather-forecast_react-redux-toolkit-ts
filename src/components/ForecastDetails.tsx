@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setHourlyOffsetLeft, setHourlyOffsetRight } from '../store/reducers/WeatherSlice/ActionCreators';
+import { setDetailsWidth, setHourlyOffsetLeft, setHourlyOffsetRight } from '../store/reducers/WeatherSlice/ActionCreators';
 import { currentTempChart } from '../utils/constans/currentTempChart';
 import { drawTempChart } from '../utils/constans/drawTempChart';
 import HourlyForecast from './HourlyForecast';
@@ -9,6 +9,7 @@ import ForecastDetailsLink from './ui/ForecastDetailsLink';
 
 const ForecastDetails: FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
+    const tempChartContainerRef = useRef<HTMLDivElement | null>(null)
     const {forecast} = useAppSelector(state => state.weather.displayedWeather)
     const {
         isCel, 
@@ -19,11 +20,21 @@ const ForecastDetails: FC = () => {
         selectedHour } = useAppSelector(state => state.weather)
     const {forecastDay} = useAppSelector(state => state.weather.displayedHourlyWeather)
     const dispatch = useAppDispatch()
-    const calcCanvasWidth = (window.innerWidth - 50) * forecast?.forecastdays?.length!
     const rightOffset = forecastDay?.hours?.length! * hourlyWidthItem! - detailsWidth!
     useEffect(() => {
-        drawTempChart(forecastDetails, forecast, canvasRef)
-    }, [isCel, forecastDetails])
+        const resizeHandler = () => {
+            dispatch(setDetailsWidth(tempChartContainerRef.current?.offsetWidth))
+        }
+        resizeHandler()
+        window.addEventListener('resize', resizeHandler)
+        return () => {
+            window.removeEventListener('resize', resizeHandler)
+        }
+    }, [])
+    useEffect(() => {
+        drawTempChart(forecastDetails, forecast, canvasRef, detailsWidth)
+    }, [isCel, forecastDetails, detailsWidth])
+
     return (
         <div className={style.forecastDetails}
         >
@@ -32,10 +43,12 @@ const ForecastDetails: FC = () => {
                 <ForecastDetailsLink currentDetails={'hourly'} detailName={'Hourly'}/>
             </div>
             { forecastDetails === 'summary'
-            ?<div className={style.forecastDetails__canvasContainer}>
-                <canvas width={calcCanvasWidth}
+            ?<div 
+                ref={tempChartContainerRef}
+                className={style.forecastDetails__canvasContainer}>
+                <canvas
                     style={{
-                        transform: `translateX(-${currentTempChart(forecast)}px)`,
+                        transform: `translateX(-${currentTempChart(forecast, detailsWidth)}px)`,
                         transition: '1s'
                     }}
                     ref={canvasRef}

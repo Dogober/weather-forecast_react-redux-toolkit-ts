@@ -21,7 +21,7 @@ const HourlyForecast: FC= () => {
         return () => {
             window.removeEventListener('resize', resizeHandler)
         }
-    }, []) 
+    }, [])
     return (
         <div 
             className={style.forecastDetails__hourly}

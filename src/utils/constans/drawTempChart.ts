@@ -5,14 +5,15 @@ import { convertDate } from "./convertDate"
 export const drawTempChart = (
     forecastDetails: string, 
     forecast?: IDisplayedForecast, 
-    canvasRef?: MutableRefObject<HTMLCanvasElement | null>
+    canvasRef?: MutableRefObject<HTMLCanvasElement | null>,
+    detailsWidth?: number
     ) => {
     let tempArr = forecast?.hours?.map(el => el.temp).filter((el, i) => i % 2 === 0)
     let timeArr = forecast?.hours?.map(el => el.time).filter((el, i) => i % 2 === 0).reverse()
     if (forecastDetails === 'summary') {
         const deg = '°'
         const canvas = canvasRef?.current
-        const width = canvas!.clientWidth >= 3948 ?3948 :canvas!.clientWidth
+        const width = canvas!.width = detailsWidth! * forecast?.forecastdays?.length!
         if (width <= 1800) {
             tempArr = tempArr?.filter((el, i) => i % 2 === 0)
             timeArr = timeArr?.filter((el, i) => i % 2 === 0)
