@@ -1,27 +1,25 @@
 .forecastDetails__hourly {
     color: #41535e;
-    padding: 5px 5px 0;
+    padding: 5px 5px 0 5px;
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     gap: 5px;
 }
-.forecastDetails__time__item {
+.forecastDetails__hourlyItemContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 113.5px;
+    gap: 5px;
 }
 .forecastDetails__hourlyItem {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-width: 113.5px;
+    min-width: 114px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-image: linear-gradient(to bottom,#9FB3BF ,  #DCEAF2);
-    padding: 5px 15px 10px;
+    padding: 5px 15px 0;
     &__img {
         max-width: 50%;
         margin: 0 0 -5px -5px;
@@ -50,5 +48,15 @@
             margin-right: 5px;
             margin-left: -5px;
         }
+    }
+    &__time {
+        margin-top: 5px;
+        text-align: center;
+    }
+    &__moreActive {
+        min-width: 200px;
+    }
+    &__moreInactive {
+        display: none;
     }
 }

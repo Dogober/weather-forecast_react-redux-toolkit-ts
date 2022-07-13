@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setHourlyOffset } from '../store/reducers/WeatherSlice/ActionCreators';
+import { setHourlyOffsetLeft, setHourlyOffsetRight } from '../store/reducers/WeatherSlice/ActionCreators';
 import { currentTempChart } from '../utils/constans/currentTempChart';
 import { drawTempChart } from '../utils/constans/drawTempChart';
 import HourlyForecast from './HourlyForecast';
@@ -10,13 +10,17 @@ import ForecastDetailsLink from './ui/ForecastDetailsLink';
 const ForecastDetails: FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const {forecast} = useAppSelector(state => state.weather.displayedWeather)
+    const {
+        isCel, 
+        forecastDetails, 
+        hourlyOffset, 
+        hourlyWidthItem, 
+        detailsWidth,
+        selectedHour } = useAppSelector(state => state.weather)
     const {forecastDay} = useAppSelector(state => state.weather.displayedHourlyWeather)
-    const {isCel, forecastDetails, hourlyOffset, detailsWidth, hourlyWidthItem} = useAppSelector(state => state.weather)
     const dispatch = useAppDispatch()
     const calcCanvasWidth = (window.innerWidth - 50) * forecast?.forecastdays?.length!
     const rightOffset = forecastDay?.hours?.length! * hourlyWidthItem! - detailsWidth!
-    const maxOffset = hourlyOffset + (((forecastDay?.hours?.length! + 1) 
-    - ((hourlyOffset + detailsWidth!)/hourlyWidthItem!)) * hourlyWidthItem!)
     useEffect(() => {
         drawTempChart(forecastDetails, forecast, canvasRef)
     }, [isCel, forecastDetails])
@@ -40,7 +44,7 @@ const ForecastDetails: FC = () => {
             </div>
             :<>
                 <button 
-                    onClick={() => dispatch(setHourlyOffset(detailsWidth! > hourlyOffset ?0 :hourlyOffset - detailsWidth!))}
+                    onClick={() => dispatch(setHourlyOffsetLeft())}
                     className={style.forecastDetails__sliderButtonLeft}
                     disabled={hourlyOffset <= 0 ?true :false}
                 >
@@ -48,12 +52,12 @@ const ForecastDetails: FC = () => {
                 </button>
                     <HourlyForecast/>
                 <button
-                    onClick={() => dispatch(setHourlyOffset(hourlyOffset + detailsWidth! >= rightOffset 
-                        ?maxOffset 
-                        :hourlyOffset + detailsWidth!
-                    ))}
+                    onClick={() => dispatch(setHourlyOffsetRight())}
                     className={style.forecastDetails__sliderButtonRight}
-                    disabled={hourlyOffset >= rightOffset ?true :false}
+                    disabled={selectedHour === null 
+                        ?hourlyOffset >= rightOffset ?true :false
+                        :hourlyOffset >= rightOffset +200 ?true :false
+                    }
                 >
                     {'>'}
                 </button>

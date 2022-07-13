@@ -12,9 +12,11 @@ export const {
     selectedForecastDetails,
     selectedTempUnit,
     selectedCity,
-    setHourlyOffset,
     setDetailsWidth,
     setHourlyWidthItem,
+    setSelectedHour,
+    setHourlyOffsetLeft,
+    setHourlyOffsetRight,
 } = weatherSlice.actions
 export const fetchWeather = (city?: string) => async (dispatch: AppDispatch) => {
     try {

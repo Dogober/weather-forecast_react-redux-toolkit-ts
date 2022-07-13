@@ -5,7 +5,7 @@ import searchLocation from './reducers/SearchLocationSlice/SearchLocationSlice'
 export const store = configureStore({
     reducer: {
         weather,
-        searchLocation
+        searchLocation,
     }
 })
 

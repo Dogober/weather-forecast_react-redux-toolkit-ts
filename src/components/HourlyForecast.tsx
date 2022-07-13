@@ -1,16 +1,17 @@
 import { FC, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setHourlyOffset, setDetailsWidth, setHourlyWidthItem } from '../store/reducers/WeatherSlice/ActionCreators';
+import { setDetailsWidth, setHourlyWidthItem, setSelectedHour } from '../store/reducers/WeatherSlice/ActionCreators';
 import style from './styles/HourlyForecast.module.scss'
 
 const HourlyForecast: FC= () => {
     const {forecastDay} = useAppSelector(state => state.weather.displayedHourlyWeather)
-    const {hourlyOffset, detailsWidth, hourlyWidthItem} = useAppSelector(state => state.weather)
+    const {hourlyOffset, selectedHour} = useAppSelector(state => state.weather)
     const hourContainerRef = useRef<HTMLDivElement>(null)
     const hourRef = useRef<HTMLDivElement>(null)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        console.log("useEffect отработал")
         dispatch(setHourlyWidthItem(hourRef.current?.offsetWidth))
         const resizeHandler = () => {
             dispatch(setDetailsWidth(hourContainerRef.current?.offsetWidth))
@@ -37,10 +38,14 @@ const HourlyForecast: FC= () => {
                 }}
             >
                 {forecastDay?.hours?.map((el, i) =>
-                        <div
-                            ref={hourRef}
+                    <div 
+                        className={style.forecastDetails__hourlyItemContainer}
+                        ref={hourRef}
+                        key={i}
+                    >
+                        <div 
                             className={style.forecastDetails__hourlyItem}
-                            key={i}
+                            onClick={() => dispatch(setSelectedHour(i))}
                         >
                             <img
                                 className={style.forecastDetails__hourlyItem__img}
@@ -58,28 +63,21 @@ const HourlyForecast: FC= () => {
                             <div className={style.forecastDetails__hourlyItem__wind}>
                                 {el.wind_kph} kp/h
                             </div>
+                            <div className={style.forecastDetails__hourlyItem__time}>
+                                {el.time}
+                            </div>
                         </div>
-                )}
-            </div >
-            <div 
-                style={{
-                    display: 'flex',
-                    gap: '5px',
-                    marginBottom: '5px',
-                    flex: '1 1 auto',
-                    transition: '1s',
-                    transform: `translateX(-${hourlyOffset}px)`,
-                }}
-            >
-                {forecastDay?.hours?.map((el, i) =>
-                    <div 
-                        className={style.forecastDetails__time__item}
-                        key={i}
-                    >
-                        {el.time}
+                        <div 
+                            className={selectedHour === i 
+                                ?style.forecastDetails__hourlyItem__moreActive
+                                :style.forecastDetails__hourlyItem__moreInactive
+                            }
+                        >
+                            {i}
+                        </div>
                     </div>
                 )}
-            </div>
+            </div >
         </div>
     );
 };

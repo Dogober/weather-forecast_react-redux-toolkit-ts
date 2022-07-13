@@ -17,6 +17,7 @@ interface WeatherState {
     hourlyOffset: number;
     detailsWidth: number | undefined;
     hourlyWidthItem: number | undefined;
+    selectedHour: number | null
 }
 
 const initialState: WeatherState = {
@@ -30,7 +31,8 @@ const initialState: WeatherState = {
     error: '',
     hourlyOffset: 0,
     detailsWidth: undefined,
-    hourlyWidthItem: undefined
+    hourlyWidthItem: undefined,
+    selectedHour: null
 }
 
 export const weatherSlice = createSlice({
@@ -61,19 +63,50 @@ export const weatherSlice = createSlice({
         selectedForecastDetails(state, action: PayloadAction<string>){
             state.forecastDetails = action.payload
         },
-        setHourlyOffset(state, action: PayloadAction<number>) {
-            state.hourlyOffset = action.payload
+        setHourlyOffsetLeft(state) {
+            const leftСheck = state.detailsWidth! >= state.hourlyOffset 
+                ?0
+                :state.hourlyOffset - state.detailsWidth!
+            state.hourlyOffset = Math.ceil(leftСheck)
+        },
+        setHourlyOffsetRight(state) {
+            const rightOffset = state.displayedHourlyWeather.forecastDay?.hours?.length! * 
+            state.hourlyWidthItem! - state.detailsWidth!
+            const maxOffset = state.hourlyOffset + ((state.displayedHourlyWeather.forecastDay?.hours?.length!
+        - ((state.hourlyOffset + state.detailsWidth!)/state.hourlyWidthItem!)) * state.hourlyWidthItem!) 
+            const rightСheck = state.detailsWidth! + state.hourlyOffset >= rightOffset 
+                ?state.selectedHour === null ?maxOffset :maxOffset + 205
+                :state.hourlyOffset + state.detailsWidth!
+            state.hourlyOffset = Math.ceil(rightСheck)
         },
         setDetailsWidth(state, action: PayloadAction<number | undefined>){
-            const hoursNumber = state.displayedHourlyWeather.forecastDay?.hours?.length! + 1
+            const hoursNumber = state.displayedHourlyWeather.forecastDay?.hours?.length!
             state.detailsWidth = action.payload
-            const otherHoursWidth = ((hoursNumber) * state.hourlyWidthItem!) - state.detailsWidth!
+            const otherHoursWidth = hoursNumber * state.hourlyWidthItem! - state.detailsWidth!
             if (state.hourlyOffset > otherHoursWidth) {
-               state.hourlyOffset = otherHoursWidth
+                state.hourlyOffset = otherHoursWidth
             }
         },
+        setSelectedHour(state, action: PayloadAction<number>){
+            state.selectedHour = action.payload === state.selectedHour ?null :action.payload
+            const restPartOfLastHourlyItemInView = (state.selectedHour! + 1) - 
+                (state.detailsWidth! + state.hourlyOffset)/state.hourlyWidthItem!
+            const hoursNumber = state.displayedHourlyWeather.forecastDay?.hours?.length!
+            const otherHoursWidth = hoursNumber * state.hourlyWidthItem! - state.detailsWidth!
+                if (restPartOfLastHourlyItemInView < 1 &&
+                    restPartOfLastHourlyItemInView >= -1 &&
+                    state.selectedHour !== null) {
+                        state.hourlyOffset = state.hourlyOffset + 
+                        restPartOfLastHourlyItemInView * state.hourlyWidthItem! + 200
+                } else if (state.hourlyOffset > otherHoursWidth && state.selectedHour === null) {
+                    state.hourlyOffset = otherHoursWidth
+
+                } else {
+                    state.hourlyOffset = state.hourlyOffset
+                }
+        },
         setHourlyWidthItem(state, action: PayloadAction<number | undefined>){
-            state.hourlyWidthItem = action.payload
+            state.hourlyWidthItem = action.payload! + 5
         },
         selectedCity(state, action: PayloadAction<string>){
             state.city = action.payload
@@ -83,7 +116,7 @@ export const weatherSlice = createSlice({
                 state.displayedWeather.forecast.dayOfForecast = action.payload
             }
             state.displayedHourlyWeather = displayedHourlyData(
-                state.weather.forecast?.forecastday, 
+                state.weather.forecast?.forecastday,
                 state.isCel,
                 action.payload,
             )
