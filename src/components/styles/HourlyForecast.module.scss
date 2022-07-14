@@ -54,7 +54,16 @@
         text-align: center;
     }
     &__moreActive {
+        padding: 0 15px 0 15px;
+        display: flex;
+        flex-direction: column;
         min-width: 200px;
+        gap: 20px;
+        &__param {
+            padding: 4px;
+            border-bottom: 1px solid #97a9b4;
+            max-width: max-content;
+        }
     }
     &__moreInactive {
         display: none;

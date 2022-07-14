@@ -58,7 +58,7 @@ const NavBar: FC = () => {
                     <ul className={style.navbar__autocomplete}>
                         {searchValue && searchIsOpen
                         ?searchLocation.map(location =>
-                            <LocationItem location={location}/>
+                            <LocationItem location={location} key={location.id}/>
                         ) :null}
                     </ul>
                 </div>

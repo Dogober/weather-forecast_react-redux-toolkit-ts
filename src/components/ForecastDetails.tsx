@@ -1,6 +1,9 @@
 import { FC, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setDetailsWidth, setHourlyOffsetLeft, setHourlyOffsetRight } from '../store/reducers/WeatherSlice/ActionCreators';
+import { 
+    setDetailsWidth, 
+    setHourlyOffsetLeft, 
+    setHourlyOffsetRight } from '../store/reducers/WeatherSlice/ActionCreators';
 import { currentTempChart } from '../utils/constans/currentTempChart';
 import { drawTempChart } from '../utils/constans/drawTempChart';
 import HourlyForecast from './HourlyForecast';
@@ -17,23 +20,29 @@ const ForecastDetails: FC = () => {
         hourlyOffset, 
         hourlyWidthItem, 
         detailsWidth,
-        selectedHour } = useAppSelector(state => state.weather)
+        selectedHour} = useAppSelector(state => state.weather)
     const {forecastDay} = useAppSelector(state => state.weather.displayedHourlyWeather)
     const dispatch = useAppDispatch()
     const rightOffset = forecastDay?.hours?.length! * hourlyWidthItem! - detailsWidth!
     useEffect(() => {
+        if (tempChartContainerRef.current?.offsetWidth === undefined) {
+            return console.log('return from useEffect summary')
+        }
         drawTempChart(forecastDetails, forecast, canvasRef)
     }, [isCel, forecastDetails, detailsWidth])
     useEffect(() => {
-        console.log("useEffect отработал")
+        if (tempChartContainerRef.current?.offsetWidth === undefined) {
+            return console.log('return from useEffect summary')
+        }
+        console.log("useEffect in summary отработал")
         const resizeHandler = () => {
             dispatch(setDetailsWidth(tempChartContainerRef.current?.offsetWidth))
-            console.log(tempChartContainerRef.current?.offsetWidth)
         }
         resizeHandler()
         window.addEventListener('resize', resizeHandler)
         return () => {
             window.removeEventListener('resize', resizeHandler)
+            console.log("resizeHandler in summary deleted")
         }
     }, [])
     return (

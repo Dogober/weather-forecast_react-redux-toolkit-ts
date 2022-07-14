@@ -1,17 +1,18 @@
 import { FC, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setDetailsWidth, setHourlyWidthItem, setSelectedHour } from '../store/reducers/WeatherSlice/ActionCreators';
+import { setDetailsWidth, setHourlyWidthItem } from '../store/reducers/WeatherSlice/ActionCreators';
+import HoutlyItem from './HoutlyItem';
+import SelectedHour from './SelectedHour';
 import style from './styles/HourlyForecast.module.scss'
 
 const HourlyForecast: FC= () => {
     const {forecastDay} = useAppSelector(state => state.weather.displayedHourlyWeather)
-    const {hourlyOffset, selectedHour} = useAppSelector(state => state.weather)
+    const {hourlyOffset} = useAppSelector(state => state.weather)
     const hourContainerRef = useRef<HTMLDivElement>(null)
     const hourRef = useRef<HTMLDivElement>(null)
     const dispatch = useAppDispatch()
-
     useEffect(() => {
-        console.log("useEffect отработал")
+        console.log("useEffect in hourly отработал")
         dispatch(setHourlyWidthItem(hourRef.current?.offsetWidth))
         const resizeHandler = () => {
             dispatch(setDetailsWidth(hourContainerRef.current?.offsetWidth))
@@ -43,38 +44,8 @@ const HourlyForecast: FC= () => {
                         ref={hourRef}
                         key={i}
                     >
-                        <div 
-                            className={style.forecastDetails__hourlyItem}
-                            onClick={() => dispatch(setSelectedHour(i))}
-                        >
-                            <img
-                                className={style.forecastDetails__hourlyItem__img}
-                                src={el.condition?.icon}
-                            />
-                            <div className={style.forecastDetails__hourlyItem__temp}>
-                                {el.temp}°
-                            </div>
-                            <div className={style.forecastDetails__hourlyItem__condition}>
-                                {el.condition?.text}
-                            </div>
-                            <div className={style.forecastDetails__hourlyItem__precip}>
-                                {el.precip_mm} mm
-                            </div>
-                            <div className={style.forecastDetails__hourlyItem__wind}>
-                                {el.wind_kph} kp/h
-                            </div>
-                            <div className={style.forecastDetails__hourlyItem__time}>
-                                {el.time}
-                            </div>
-                        </div>
-                        <div 
-                            className={selectedHour === i 
-                                ?style.forecastDetails__hourlyItem__moreActive
-                                :style.forecastDetails__hourlyItem__moreInactive
-                            }
-                        >
-                            {i}
-                        </div>
+                        <HoutlyItem hour={el} hourIndex={i} />
+                        <SelectedHour hour={el} hourIndex={i}/>
                     </div>
                 )}
             </div >

@@ -81,5 +81,8 @@ interface IHour {
     chance_of_snow: number;
     vis_km: number;
     gust_mph: number;
-    gust_kph: number
+    gust_kph: number;
+    uv: number;
+    dewpoint_c: number;
+    dewpoint_f: number;
 }

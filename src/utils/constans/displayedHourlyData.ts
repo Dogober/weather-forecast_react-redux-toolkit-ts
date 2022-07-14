@@ -23,7 +23,12 @@ export const displayedHourlyData: displayedHourlyDataType = (forecastDay, isCel,
                         icon: hour.condition.icon
                     },
                     precip_mm: hour.precip_mm,
-                    wind_kph: hour.wind_kph
+                    wind_kph: hour.wind_kph,
+                    gust_kph: hour.gust_kph,
+                    vis_km: hour.vis_km,
+                    uv: hour.uv,
+                    feelslike: isCel ?hour.feelslike_c :hour.feelslike_f,
+                    dewpoint: isCel ?hour.dewpoint_c :hour.dewpoint_f,
                 }))
             },
         }
