@@ -32,7 +32,7 @@ const initialState: WeatherState = {
     hourlyOffset: 0,
     detailsWidth: undefined,
     hourlyWidthItem: undefined,
-    selectedHour: null
+    selectedHour: 0
 }
 
 export const weatherSlice = createSlice({

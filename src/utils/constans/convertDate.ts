@@ -6,6 +6,7 @@ export const convertDate = (date: string)  => {
     } else {
         let weekday = new Date(date).toLocaleDateString('en-us', { weekday: 'long'})
         let day = new Date(date).toLocaleDateString('en-us', { day: 'numeric'})
+        console.log(weekday + " " + day)
         return weekday + " " + day
     }
 }

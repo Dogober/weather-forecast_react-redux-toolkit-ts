@@ -8,7 +8,7 @@ interface SearchLocationState {
 const initialState: SearchLocationState = {
     searchLocation: [],
     searchValue: '',
-    searchIsOpen: false
+    searchIsOpen: false,
 }
 
 export const searchLocationSlice = createSlice({
@@ -25,7 +25,7 @@ export const searchLocationSlice = createSlice({
             state.searchIsOpen = action.payload
             state.searchValue = !state.searchIsOpen ?"" :state.searchValue
             state.searchLocation = !state.searchIsOpen ?[] :state.searchLocation
-        }
+        },
     }
 })
 
