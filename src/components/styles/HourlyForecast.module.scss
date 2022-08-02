@@ -39,7 +39,7 @@
         align-self: flex-start;
         font-size: 12px;
         &::before{
-            content: url('../../drop.png');
+            content: url('http://localhost:3000/drop.png');
             margin-right: 5px;
         }
     }
@@ -47,7 +47,7 @@
         align-self: flex-start;
         font-size: 12px;
         &::before{
-            content: url('../../wind.png');
+            content: url('http://localhost:3000/wind.png');
             margin-right: 5px;
             margin-left: -5px;
         }

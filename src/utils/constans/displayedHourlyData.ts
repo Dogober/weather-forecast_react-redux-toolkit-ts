@@ -7,6 +7,17 @@ type displayedHourlyDataType = (
     dayOfForecast?: string,
 ) => IDisplayedHourlyWeather
 const regExp = /(\w+\s\w+)/g
+const dateFilter = (date: string) => {
+    let hours = date.split(/[\s\:]/)[1]
+    if (+hours === 0) {
+        return '12 AM'
+    } else if (+hours < 12) {
+        return hours + ' AM'
+    } else if (+hours === 12){
+        return '12 PM'
+    }
+    return +hours - 12 + ' PM'
+}
 
 export const displayedHourlyData: displayedHourlyDataType = (forecastDay, isCel, dayOfForecast) => {
     const currentDay = forecastDay?.find(el => el.date === dayOfForecast)
@@ -15,8 +26,7 @@ export const displayedHourlyData: displayedHourlyDataType = (forecastDay, isCel,
             forecastDay: {
                 date: currentDay?.date,
                 hours: currentDay?.hour.map(hour => ({
-                    time: new Date(hour.time).toLocaleDateString('en-us', { hour: '2-digit' })
-                        .match(regExp)![0],
+                    time: dateFilter(hour.time),
                     temp: isCel ?hour.temp_c :hour.temp_f,
                     condition: {
                         text: hour.condition.text,
