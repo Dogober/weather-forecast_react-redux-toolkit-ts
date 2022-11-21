@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useAppSelector } from '../hooks';
 import style from './styles/Location.module.scss'
-import City from '../assets/city5.png'
+import City from '../assets/city.png'
 
 const Location: FC = () => {
     const { displayedWeather } = useAppSelector(state => state.weather)
