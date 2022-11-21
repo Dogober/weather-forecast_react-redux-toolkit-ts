@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/weather-forecast_react-redux-toolkit-ts/static/css/main.74837b3e.css",
+    "main.js": "/weather-forecast_react-redux-toolkit-ts/static/js/main.9a0d346d.js",
+    "static/media/city.png": "/weather-forecast_react-redux-toolkit-ts/static/media/city.cf683a4e4a43aace1b91.png",
+    "index.html": "/weather-forecast_react-redux-toolkit-ts/index.html",
+    "main.74837b3e.css.map": "/weather-forecast_react-redux-toolkit-ts/static/css/main.74837b3e.css.map",
+    "main.9a0d346d.js.map": "/weather-forecast_react-redux-toolkit-ts/static/js/main.9a0d346d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74837b3e.css",
+    "static/js/main.9a0d346d.js"
+  ]
+}
