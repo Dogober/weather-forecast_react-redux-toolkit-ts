@@ -6,7 +6,6 @@ type displayedHourlyDataType = (
     isCel?: boolean,
     dayOfForecast?: string,
 ) => IDisplayedHourlyWeather
-const regExp = /(\w+\s\w+)/g
 const dateFilter = (date: string) => {
     let hours = date.split(/[\s\:]/)[1]
     if (+hours === 0) {
